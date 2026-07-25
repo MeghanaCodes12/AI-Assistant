@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">
+                🤖 AI Assistant
+            </div>
+            <div class="nav-links">
+                <a href="/">🏠 Home</a>
+                <a href="/history">📜 History</a>
+                <a href="/dashboard">📊 Dashboard</a>
+                <a href="/about">ℹ About</a>
+            </div>
+            <button id="themeToggle" type="button">
+                🌙 Dark Mode
+            </button>
+        </nav>
+    
+        <div class="hero">
+            <h1>📊 Feedback Dashboard</h1>
+            <p class="subtitle">
+                Monitor user feedback and analyze AI assistant performance.
+            </p>
+        </div>
+        <div class="dashboard-grid">
+            <div class="card">
+                <h2>📁 Total</h2>
+                <p>{{ total }}</p>
+            </div>
+            <div class="card">
+                <h2>👍 Positive</h2>
+                <p>{{ yes }}</p>
+            </div>
+            <div class="card">
+                <h2>👎 Negative</h2>
+                <p>{{ no }}</p>
+            </div>
+            <div class="card">
+                <h2>😊 Satisfaction</h2>
+                <p>{{ rate }}%</p>
+            </div>
+        </div>
+        <div class="chart-card">
+            <h2>📈 Feedback Analysis</h2>
+            <canvas id="feedbackChart"></canvas>
+        </div>
+        
+        <div class="bottom-actions">
+            <a href="/history">
+                <button type="button">
+                    📜 View History
+                </button>
+            </a>
+            <a href="/">
+                <button type="button">
+                    🏠 Back to Home
+                </button>
+            </a>
+        </div>
+    </div>
+    <footer class="footer">
+        <p>
+            🤖 AI Assistant | Powered by Google Gemini AI
+        </p>
+        <p>
+            Developed by <strong>Annaladasu Meghana</strong>
+        </p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const yesCount = Number("{{ yes }}");
+        const noCount = Number("{{ no }}");
+        const ctx = document.getElementById("feedbackChart");
+        new Chart(ctx, {
+            type: "pie",
+            data: {
+                labels: [
+                    "Positive 👍",
+                    "Negative 👎"
+                ],
+                datasets: [{
+                    data: [
+                        yesCount,
+                        noCount
+                    ],
+                    backgroundColor: [
+                        "#10B981",
+                        "#EF4444"
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: "bottom"
+                    }
+                }
+            }
+        });
+        </script>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

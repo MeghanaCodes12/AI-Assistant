@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">
+                🤖 AI Assistant
+            </div>
+            <div class="nav-links">
+                <a href="/">🏠 Home</a>
+                <a href="/history">📜 History</a>
+                <a href="/dashboard">📊 Dashboard</a>
+                <a href="/about">ℹ About</a>
+            </div>
+            <button id ="themeToggle" type="button">🌙 Dark Mode</button>
+        </nav>
+        
+        <div class="hero">
+            <h1>🤖 AI-Powered Intelligent Assistant</h1>
+            <p class="subtitle">
+                Your smart companion for answering questions, summarizing text, and generating creative content.
+            </p>
+            <div class="hero-tags">
+                <span>❓ Question Answering</span>
+                <span>📝 Text Summarization</span>
+                <span>✨ Creative Writing</span>
+            </div>
+        </div>
+
+        <div class="form-card">
+            <form method="POST" id="mainForm">
+                <label class="form-label">🤖 Choose an AI Function</label>
+                <select name="function" class="modern-select">
+                    <option value="question"
+                        {% if selected_function == "question" %}selected{% endif %}>
+                        ❓ Answer Questions
+                    </option>
+                    <option value="summary"
+                        {% if selected_function == "summary" %}selected{% endif %}>
+                        📝 Summarize Text
+                    </option>
+                    <option value="creative"
+                        {% if selected_function == "creative" %}selected{% endif %}>
+                        ✨ Generate Creative Content
+                    </option>
+                </select>
+                <br><br>
+                <label class="form-label">💬 Enter Your Prompt</label>
+                <textarea autocomplete="off"
+                    class="modern-textarea"
+                    name="user_input"
+                    rows="8"
+                    placeholder="Type your request here...
+                    Examples:
+                    • Explain Artificial Intelligence
+                    • Summarize this article
+                    • Write a poem about nature">{{ user_input }}</textarea>
+                <br>
+                <button type="submit" id="generateBtn" class="generate-btn">🚀 Generate AI Response</button>
+                <p id="loading" class="loading-text" style="display: none;">⏳ Generating AI response...</p>
+            </form>
+        </div>
+        {% if response %}
+        <div class="response">
+            <div class="response-header">
+                <h2>🤖 AI Response</h2>
+                <button type="button" id="copyBtn" class="copy-btn" onclick="copyResponse()">
+                    📄 Copy Response
+                </button>
+            </div>
+            <hr>
+            <p id="aiResponse">{{ response }}</p>
+        </div>
+        {% endif %}
+
+        {% if feedback_message %}
+        <div class="success">
+            <p>{{ feedback_message }}</p>
+            <small>Submitted on: {{ feedback_time }}</small>
+        </div>
+        {% endif %}
+
+        {% if response %}
+        <div class="feedback-card">
+            <h3>Was this response helpful?</h3>
+            <div class="feedback-buttons">
+                <form action="/feedback" method="POST">
+                    <input type="hidden" name="feedback" value="Yes">
+                    <button class="yes-btn" type="submit">
+                        👍 Yes
+                    </button>
+                </form>
+                <form action="/feedback" method="POST">
+                    <input type="hidden" name="feedback" value="No">
+                    <button class="no-btn" type="submit">
+                        👎 No
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="features">
+            <h2>✨ Why Choose Our AI Assistant?</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Fast Responses</h3>
+                    <p>Generate AI-powered responses within seconds using Google's Gemini AI.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Smart AI</h3>
+                    <p>Ask questions, summarize text, or generate creative content effortlessly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure</h3>
+                    <p>Your prompts remain private while interacting with the AI Assistant.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Feedback Analytics</h3>
+                    <p>Track user satisfaction through the built-in feedback dashboard.</p>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-actions">
+            <a href="/history">
+                <button type="button">📜 View Feedback History</button>
+            </a>
+        </div>
+    </div>
+    <footer class="footer">
+        <p>
+            🤖 AI Assistant | Powered by Google Gemini AI
+        </p>
+        <p>
+            Developed by <strong>Annaladasu Meghana</strong>
+        </p>
+    </footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
