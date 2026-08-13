@@ -7,6 +7,9 @@ summarizing text, and generating creative content. The application also collects
 feedback and provides an analytics dashboard, all wrapped in a modern, responsive interface
 with light and dark themes.
 
+## 🚀 Live Demo
+
+👉 [Click here to use the AI Assistant] - (https://ai-assistant-hfmt.onrender.com)
 ## Features
 - Answer Questions
 - Summarize Text
@@ -38,9 +41,7 @@ AI Assistant/
 ├── app.py
 ├── prompts.py
 ├── requirements.txt
-├── .env
 ├── .gitignore
-├── feedback.txt
 ├── README.md
 │
 ├── static/
